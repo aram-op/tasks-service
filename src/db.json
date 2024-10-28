@@ -20,36 +20,12 @@
   ],
   "tasks": [
     {
-      "id": "1",
-      "title": "New angular component",
-      "description": "Add a new angular component with our new functionality",
-      "dueDate": "11/08/2024",
-      "priority": "PRIORITY_MEDIUM",
-      "status": "STATUS_IN_PROGRESS"
-    },
-    {
-      "id": "2",
-      "title": "Bugfix ",
-      "description": "Fix that minor ui bug",
-      "dueDate": "10/27/2024",
-      "priority": "PRIORITY_LOW",
-      "status": "STATUS_IN_PROGRESS"
-    },
-    {
-      "id": "3",
-      "title": "Fix security",
-      "description": "Fix the bug in security-related part of our application",
-      "dueDate": "10/20/2024",
-      "priority": "PRIORITY_CRITICAL",
-      "status": "STATUS_COMPLETED"
-    },
-    {
-      "title": "A new task",
+      "title": "New Task",
       "description": "Description",
-      "dueDate": "10/27/2024",
-      "priority": "PRIORITY_HIGH",
+      "dueDate": "2024-12-26",
+      "priority": "PRIORITY_LOW",
       "status": "STATUS_COMPLETED",
-      "id": "sDaSISt"
+      "id": 1
     }
   ]
 }

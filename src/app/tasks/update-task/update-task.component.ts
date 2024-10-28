@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {TasksService} from '../tasks.service';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Task, TaskPriority, TaskStatus} from '../task.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HeaderComponent} from '../../header/header.component';
@@ -26,7 +26,7 @@ export class UpdateTaskComponent {
     this.taskUpdateForm = new FormGroup({
       title: new FormControl(''),
       description: new FormControl(''),
-      dueDate: new FormControl(''),
+      dueDate: new FormControl('', Validators.pattern('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')),
       priority: new FormControl(''),
       status: new FormControl(''),
     });

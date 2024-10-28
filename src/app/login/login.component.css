@@ -10,7 +10,7 @@ form {
 .form-item {
   display: flex;
   flex-direction: column;
-  height: 110px;
+  height: 150px;
 }
 
 form label {
@@ -52,7 +52,11 @@ form button:hover:not([disabled]) {
   transition: 0.1s;
 }
 
-
 form button:disabled {
   background-color: grey;
+}
+
+.validation-message {
+  font-size: 18px;
+  color: #c75454;
 }
