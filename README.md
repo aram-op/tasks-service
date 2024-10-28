@@ -1,3 +1,9 @@
+# How to run this project
+
+To run this project, you need to not only run the angular app, but also install json-server, instal json-server-auth, and run json-server-auth with following command:
+json-server-auth src/db.json
+If you encounter errors, remove the json-server and isntall the 0.17.4 version.
+
 # TaskManagementService
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
