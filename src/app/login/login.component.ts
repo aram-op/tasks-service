@@ -42,7 +42,7 @@ export class LoginComponent {
       if (params['returnUrl']) {
         this.router.navigate([params['returnUrl']]);
       } else {
-        this.router.navigate(['tasks']);
+        this.router.navigate(['tasks']).then(() => window.location.reload());
       }
     });
   }

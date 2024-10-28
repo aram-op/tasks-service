@@ -19,7 +19,7 @@ export class TaskComponent {
   task = input.required<Task>();
 
   onEditTask() {
-    this.router.navigate([`tasks/${this.task().id}/update`]);
+    this.router.navigate([`tasks/${this.task().id}/update`]).then(() => window.location.reload());
   }
 
   protected readonly TaskStatus = TaskStatus;

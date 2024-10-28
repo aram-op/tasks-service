@@ -41,10 +41,10 @@ export class CreateTaskComponent {
     }
 
     this.tasksService.addTask(newTaskObj).subscribe();
-    this.router.navigate(['tasks']);
+    this.router.navigate(['tasks']).then(() => window.location.reload());
   }
 
   onCancel() {
-    this.router.navigate(['tasks']);
+    this.router.navigate(['tasks']).then(() => window.location.reload());
   }
 }

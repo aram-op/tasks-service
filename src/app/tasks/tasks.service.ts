@@ -12,10 +12,6 @@ export class TasksService {
   tasks$ = this.tasksSubject.asObservable();
 
   constructor() {
-    this.loadTasks();
-  }
-
-  loadTasks() {
     this.http.get<Task[]>('http://localhost:3000/tasks').subscribe(tasks => {
       this.tasksSubject.next(tasks);
     });
@@ -26,20 +22,14 @@ export class TasksService {
   }
 
   addTask(task: Object) {
-    let result = this.http.post('http://localhost:3000/tasks', task);
-    this.loadTasks();
-    return result;
+    return this.http.post('http://localhost:3000/tasks', task);
   }
 
   updateTask(id: string, task: Object) {
-    let result = this.http.put('http://localhost:3000/tasks/' + id, task);
-    this.loadTasks();
-    return result;
+    return this.http.put('http://localhost:3000/tasks/' + id, task);
   }
 
   deleteTask(id: string) {
-    let result = this.http.delete('http://localhost:3000/tasks/' + id);
-    this.loadTasks();
-    return result;
+    return this.http.delete('http://localhost:3000/tasks/' + id);
   }
 }
