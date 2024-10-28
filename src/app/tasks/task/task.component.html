@@ -1,31 +1,21 @@
-
-<p>{{ task().title }}</p>
-<p>{{ task().description }}</p>
-<p>{{ task().dueDate }}</p>
-@switch (task().priority) {
-  @case (TaskPriority.LOW) {
-    <p>Priority: low</p>
+<div>
+  <p class="task-title">{{ task().title }}</p>
+  <p class="task-info">Due date: {{ task().dueDate | date }}</p>
+  @switch (task().priority) {
+    @case (TaskPriority.LOW) {
+      <p class="task-info">Priority: low</p>
+    }
+    @case (TaskPriority.MEDIUM) {
+      <p class="task-info">Priority: medium</p>
+    }
+    @case (TaskPriority.HIGH) {
+      <p class="task-info">Priority: high</p>
+    }
+    @case (TaskPriority.CRITICAL) {
+      <p class="task-info">Priority: critical</p>
+    }
   }
-  @case (TaskPriority.MEDIUM) {
-    <p>Priority: medium</p>
-  }
-  @case (TaskPriority.HIGH) {
-    <p>Priority: high</p>
-  }
-  @case (TaskPriority.CRITICAL) {
-    <p>Priority: critical</p>
-  }
-}
-@switch (task().status) {
-  @case (TaskStatus.TODO) {
-    <p>Status : todo</p>
-  }
-  @case (TaskStatus.IN_PROGRESS) {
-    <p>Status : in-progress</p>
-  }
-  @case (TaskStatus.COMPLETED) {
-    <p>Status : Completed</p>
-  }
-}
-
-<button type="button" (click)="onEditTask()">Edit</button>
+</div>
+<button type="button" (click)="onEditTask()">
+  <img src="assets/edit_icon.svg" />
+</button>

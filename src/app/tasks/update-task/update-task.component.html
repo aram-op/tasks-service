@@ -5,7 +5,7 @@
     <label for="title">Title</label>
     <input type="text" id="title" formControlName="title" />
   </div>
-  <div class="form-control-container">
+  <div class="description-container">
     <label for="description">Description</label>
     <textarea type="text" id="description" formControlName="description"></textarea>
   </div>
@@ -31,7 +31,7 @@
     </select>
   </div>
 
-  <button type="button" [disabled]="isButtonDisabled()" (click)="onUpdateTask()">Update</button>
+  <button type="button" class="submit" [disabled]="isButtonDisabled()" (click)="onUpdateTask()">Update</button>
 
-  <button type="button" (click)="onDeleteTask()">Delete</button>
+  <button type="button" class="delete" (click)="onDeleteTask()">Delete</button>
 </form>

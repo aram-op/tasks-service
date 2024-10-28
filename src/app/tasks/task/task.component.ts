@@ -2,12 +2,14 @@ import {Component, inject, input} from '@angular/core';
 import {Task, TaskPriority, TaskStatus} from '../task.model';
 import {Router} from '@angular/router';
 import {HeaderComponent} from '../../header/header.component';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-task',
   standalone: true,
   imports: [
-    HeaderComponent
+    HeaderComponent,
+    DatePipe
   ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'

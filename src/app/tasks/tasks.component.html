@@ -1,6 +1,7 @@
-<app-header headerText="Your Available Tasks"/>
-
-<button type="button" (click)="onCreateTask()">Create Task</button>
+<header>
+  <h1>Your Available Tasks</h1>
+  <button type="button" (click)="onCreateTask()">Create Task</button>
+</header>
 
 <div class="tasks-container">
 
@@ -14,11 +15,12 @@
     [cdkDropListEnterPredicate]="noReturnPredicate"
   >
     @if (todoTasks.length !== 0) {
+      <p class="tasks-column-title">To Do</p>
       @for (task of todoTasks; track task.id) {
         <app-task [task]="task" cdkDrag [cdkDragData]="task"></app-task>
       }
     } @else {
-      <p>There are no todo tasks!!</p>
+      <p class="empty-column">You don't have todo tasks.</p>
     }
   </div>
 
@@ -32,11 +34,12 @@
     [cdkDropListEnterPredicate]="todoPredicate"
   >
     @if (inProgressTasks.length !== 0) {
+      <p class="tasks-column-title">In-progress</p>
       @for (task of inProgressTasks; track task.id) {
         <app-task [task]="task" cdkDrag [cdkDragData]="task"></app-task>
       }
     } @else {
-      <p>There are no in-progress tasks!!</p>
+      <p class="empty-column">You don't have any tasks in-progress.</p>
     }
   </div>
 
@@ -49,11 +52,12 @@
        [cdkDropListEnterPredicate]="todoOrInProgressPredicate"
   >
     @if (completedTasks.length !== 0) {
+      <p class="tasks-column-title">Completed</p>
       @for (task of completedTasks; track task.id) {
-        <app-task [task]="task" cdkDrag [cdkDragData]="task"></app-task>
+        <app-task [task]="task"></app-task>
       }
     } @else {
-      <p>There are no completed tasks!!</p>
+      <p class="empty-column">You haven't completed a task yet.</p>
     }
   </div>
 </div>

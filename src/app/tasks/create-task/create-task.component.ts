@@ -46,4 +46,8 @@ export class CreateTaskComponent {
     this.tasksService.addTask(newTaskObj).subscribe();
     this.router.navigate(['tasks']);
   }
+
+  onCancel() {
+    this.router.navigate(['tasks']);
+  }
 }

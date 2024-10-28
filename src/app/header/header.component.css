@@ -1,0 +1,19 @@
+:host {
+  align-items: center;
+  display: flex;
+  height: 10%;
+  padding: 20px;
+  background-color: var(--header-color);
+  color: var(--header-font-color);
+  margin-bottom: 30px;
+  box-shadow: #e5e5e5 0px 3px 15px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 500;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
