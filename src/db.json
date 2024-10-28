@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Aram",
+      "surname": "Tadevosyan",
+      "email": "aramtad2006@gmail.com",
+      "password": "Password123$"
+    },
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$S8n0T/dvrBBk.DY1oZGrBuNWnlJs2wyDy7sS7ljWpx.VLeQ8ucyym",
+      "id": "xz6d5hz"
+    },
+    {
+      "email": "aramtad@gmail.com",
+      "password": "$2a$10$7Ihvm/eRPm7FjEr18TNWPO/3dEn4isZ8GVwWLDdxBS71nQRzh3yo.",
+      "id": "NJSn3LH"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "title": "New angular component",
+      "description": "Add a new angular component with our new functionality",
+      "dueDate": "11/08/2024",
+      "priority": "PRIORITY_MEDIUM",
+      "status": "STATUS_IN_PROGRESS"
+    },
+    {
+      "id": "2",
+      "title": "Bugfix ",
+      "description": "Fix that minor ui bug",
+      "dueDate": "10/27/2024",
+      "priority": "PRIORITY_LOW",
+      "status": "STATUS_IN_PROGRESS"
+    },
+    {
+      "id": "3",
+      "title": "Fix security",
+      "description": "Fix the bug in security-related part of our application",
+      "dueDate": "10/20/2024",
+      "priority": "PRIORITY_CRITICAL",
+      "status": "STATUS_COMPLETED"
+    },
+    {
+      "title": "A new task",
+      "description": "Description",
+      "dueDate": "10/27/2024",
+      "priority": "PRIORITY_HIGH",
+      "status": "STATUS_COMPLETED",
+      "id": "sDaSISt"
+    }
+  ]
+}

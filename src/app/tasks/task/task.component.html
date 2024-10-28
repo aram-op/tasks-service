@@ -1,0 +1,31 @@
+
+<p>{{ task().title }}</p>
+<p>{{ task().description }}</p>
+<p>{{ task().dueDate }}</p>
+@switch (task().priority) {
+  @case (TaskPriority.LOW) {
+    <p>Priority: low</p>
+  }
+  @case (TaskPriority.MEDIUM) {
+    <p>Priority: medium</p>
+  }
+  @case (TaskPriority.HIGH) {
+    <p>Priority: high</p>
+  }
+  @case (TaskPriority.CRITICAL) {
+    <p>Priority: critical</p>
+  }
+}
+@switch (task().status) {
+  @case (TaskStatus.TODO) {
+    <p>Status : todo</p>
+  }
+  @case (TaskStatus.IN_PROGRESS) {
+    <p>Status : in-progress</p>
+  }
+  @case (TaskStatus.COMPLETED) {
+    <p>Status : Completed</p>
+  }
+}
+
+<button type="button" (click)="onEditTask()">Edit</button>

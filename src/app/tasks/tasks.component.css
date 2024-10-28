@@ -1,0 +1,11 @@
+.tasks-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.tasks-column {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}

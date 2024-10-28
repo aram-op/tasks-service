@@ -1,0 +1,59 @@
+<app-header headerText="Your Available Tasks"/>
+
+<button type="button" (click)="onCreateTask()">Create Task</button>
+
+<div class="tasks-container">
+
+  <div
+    class="tasks-column todo-tasks-column"
+    id="todo"
+    cdkDropList
+    [cdkDropListConnectedTo]="['in-progress', 'completed']"
+    [cdkDropListData]="todoTasks"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListEnterPredicate]="noReturnPredicate"
+  >
+    @if (todoTasks.length !== 0) {
+      @for (task of todoTasks; track task.id) {
+        <app-task [task]="task" cdkDrag [cdkDragData]="task"></app-task>
+      }
+    } @else {
+      <p>There are no todo tasks!!</p>
+    }
+  </div>
+
+  <div
+    class="tasks-column in-progress-tasks-column"
+    id="in-progress"
+    cdkDropList
+    [cdkDropListConnectedTo]="['todo', 'completed']"
+    [cdkDropListData]="inProgressTasks"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListEnterPredicate]="todoPredicate"
+  >
+    @if (inProgressTasks.length !== 0) {
+      @for (task of inProgressTasks; track task.id) {
+        <app-task [task]="task" cdkDrag [cdkDragData]="task"></app-task>
+      }
+    } @else {
+      <p>There are no in-progress tasks!!</p>
+    }
+  </div>
+
+  <div class="tasks-column completed-tasks-column"
+       id="completed"
+       cdkDropList
+       [cdkDropListConnectedTo]="['todo', 'in-progress']"
+       [cdkDropListData]="completedTasks"
+       (cdkDropListDropped)="drop($event)"
+       [cdkDropListEnterPredicate]="todoOrInProgressPredicate"
+  >
+    @if (completedTasks.length !== 0) {
+      @for (task of completedTasks; track task.id) {
+        <app-task [task]="task" cdkDrag [cdkDragData]="task"></app-task>
+      }
+    } @else {
+      <p>There are no completed tasks!!</p>
+    }
+  </div>
+</div>
