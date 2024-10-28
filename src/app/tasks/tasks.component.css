@@ -106,3 +106,7 @@ header button:hover {
   color: rgba(14, 97, 190, 0.85);
 }
 
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
