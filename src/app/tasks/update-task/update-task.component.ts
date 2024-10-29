@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {TasksService} from '../tasks.service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Task, TaskPriority, TaskStatus} from '../task.model';
@@ -19,6 +19,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class UpdateTaskComponent {
   private tasksService = inject(TasksService);
+  private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   taskUpdateForm = new FormGroup({
@@ -35,7 +36,7 @@ export class UpdateTaskComponent {
       const taskId = params.get('taskId');
       if (taskId && taskId.trim().length > 0) {
 
-        this.tasksService.getTaskById(taskId)
+        const subscription = this.tasksService.getTaskById(taskId)
           .pipe(
             catchError(error => this.handleError(error, this.router)))
           .subscribe(
@@ -43,7 +44,8 @@ export class UpdateTaskComponent {
               this.initializeForm(task);
               this.task = task;
             }
-          )
+          );
+        this.destroyRef.onDestroy(() => subscription.unsubscribe());
       } else {
         this.router.navigate(['not-found']).then(() => window.location.reload());
       }
@@ -72,12 +74,16 @@ export class UpdateTaskComponent {
       this.task.status = status;
     }
 
-    this.tasksService.updateTask(this.task.id, this.task).subscribe();
+    const subscription = this.tasksService.updateTask(this.task.id, this.task).subscribe();
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+
     this.router.navigate(['tasks']).then(() => window.location.reload());
   }
 
   onDeleteTask() {
-    this.tasksService.deleteTask(this.task.id).subscribe();
+    const subscription = this.tasksService.deleteTask(this.task.id).subscribe();
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+
     this.router.navigate(['tasks']).then(() => window.location.reload());
   }
 

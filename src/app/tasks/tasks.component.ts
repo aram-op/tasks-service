@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {TasksService} from './tasks.service';
 import {Observable} from 'rxjs';
 import {Task, TaskStatus} from './task.model';
@@ -24,6 +24,7 @@ import {User} from '../users/user.model';
 })
 export class TasksComponent implements OnInit {
   private tasksService = inject(TasksService);
+  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private authService = inject(AuthService);
   user: WritableSignal<User | undefined> = signal(undefined);
@@ -35,11 +36,13 @@ export class TasksComponent implements OnInit {
   ngOnInit() {
     this.tasks$ = this.tasksService.tasks$;
 
-    this.tasks$.subscribe(tasks => {
+    const subscription = this.tasks$.subscribe(tasks => {
       this.completedTasks = tasks.filter(task => task.status === TaskStatus.COMPLETED);
       this.todoTasks = tasks.filter(task => task.status === TaskStatus.TODO);
       this.inProgressTasks = tasks.filter(task => task.status === TaskStatus.IN_PROGRESS);
     });
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+
     this.setLoggedUser();
   }
 
@@ -70,13 +73,15 @@ export class TasksComponent implements OnInit {
         task.status = TaskStatus.COMPLETED;
         break;
     }
-    this.tasksService.updateTask(task.id, task).subscribe();
+    const subscription = this.tasksService.updateTask(task.id, task).subscribe();
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   setLoggedUser() {
-    this.authService.getLoggedUser().subscribe(
+    const subscription = this.authService.getLoggedUser().subscribe(
       user => this.user.set(user)
     );
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   noReturnPredicate() {

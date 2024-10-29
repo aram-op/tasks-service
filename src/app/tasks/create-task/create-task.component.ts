@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TasksService} from '../tasks.service';
 import {TaskStatus} from '../task.model';
@@ -19,6 +19,7 @@ import {AuthService} from '../../auth/auth.service';
 export class CreateTaskComponent {
   private tasksService = inject(TasksService);
   private authService = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   taskCreationForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -40,11 +41,13 @@ export class CreateTaskComponent {
       dueDate: controls['dueDate'].value,
       priority: controls['priority'].value,
       status: TaskStatus.TODO,
-      userId : this.authService.getLoggedUserId()
+      userId: this.authService.getLoggedUserId()
 
     }
 
-    this.tasksService.addTask(newTaskObj).subscribe();
+    const subscription = this.tasksService.addTask(newTaskObj).subscribe();
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+
     this.router.navigate(['tasks']).then(() => window.location.reload());
   }
 

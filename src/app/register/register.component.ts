@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {HeaderComponent} from '../header/header.component';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {User} from '../users/user.model';
@@ -17,6 +17,7 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent {
   private authService = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
 
   registerForm = new FormGroup({
@@ -57,7 +58,8 @@ export class RegisterComponent {
       surname: controls.surname.value!.valueOf()
     }
 
-    this.authService.register(user).subscribe();
+    const subscription = this.authService.register(user).subscribe();
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
     this.router.navigate(['login']);
   }
 

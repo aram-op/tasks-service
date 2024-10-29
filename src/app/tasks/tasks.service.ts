@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {DestroyRef, inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Task} from './task.model';
 import {BehaviorSubject, map} from 'rxjs';
@@ -9,6 +9,7 @@ import {AuthService} from '../auth/auth.service';
 })
 export class TasksService {
   private authService = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
   private http = inject(HttpClient);
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   tasks$ = this.tasksSubject.asObservable();
@@ -20,7 +21,7 @@ export class TasksService {
   setUsersTasks() {
     const userId = this.authService.getLoggedUserId();
 
-    this.http.get<Task[]>('http://localhost:3000/tasks')
+    const subscription = this.http.get<Task[]>('http://localhost:3000/tasks')
       .pipe(
         map(tasks => tasks.filter(
           task => task.userId === userId
@@ -31,6 +32,7 @@ export class TasksService {
           this.tasksSubject.next(tasks);
         }
       );
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   getTaskById(id: string) {

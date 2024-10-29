@@ -24,13 +24,22 @@
   ],
   "tasks": [
     {
-      "title": "rgerwae",
-      "description": "aregvrfesd",
+      "title": "Title",
+      "description": "Description",
       "dueDate": "2024-10-31",
       "priority": "PRIORITY_HIGH",
-      "status": "STATUS_TODO",
+      "status": "STATUS_COMPLETED",
       "userId": "DRPJQQ2",
       "id": 1
+    },
+    {
+      "title": "New task",
+      "description": "task description",
+      "dueDate": "2024-11-22",
+      "priority": "PRIORITY_HIGH",
+      "status": "STATUS_IN_PROGRESS",
+      "userId": "DRPJQQ2",
+      "id": 2
     }
   ]
 }

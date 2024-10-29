@@ -1,6 +1,5 @@
-import {Component, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {UsersService} from '../users/users.service';
 import {AuthService} from '../auth/auth.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {HeaderComponent} from '../header/header.component';
@@ -17,9 +16,9 @@ import {HeaderComponent} from '../header/header.component';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  private usersService = inject(UsersService);
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
 
   loginForm = new FormGroup({
@@ -35,7 +34,8 @@ export class LoginComponent {
     const email: string = this.loginForm.controls.email.value!.valueOf();
     const password: string = this.loginForm.controls.password.value!.valueOf();
 
-    this.authService.login(email, password).subscribe(() => this.navigateBack());
+    const subscription = this.authService.login(email, password).subscribe(() => this.navigateBack());
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   navigateBack() {
