@@ -1,9 +1,10 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, ElementRef, inject, ViewChild} from '@angular/core';
 import {HeaderComponent} from '../header/header.component';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {User} from '../users/user.model';
 import {AuthService} from '../auth/auth.service';
 import {Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,7 @@ export class RegisterComponent {
   private authService = inject(AuthService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+  @ViewChild('registerFailed') messageElem!: ElementRef<HTMLParagraphElement>;
 
   registerForm = new FormGroup({
     email: new FormControl('', [
@@ -58,9 +60,19 @@ export class RegisterComponent {
       surname: controls.surname.value!.valueOf()
     }
 
-    const subscription = this.authService.register(user).subscribe();
+    const subscription = this.authService.register(user).subscribe({
+      next: () => {
+        this.messageElem.nativeElement.className = 'register-failed-message hidden'
+        this.router.navigate(['login']);
+      },
+      error: (err: HttpErrorResponse) => {
+        if (err.status === 400) {
+          this.messageElem.nativeElement.className = 'register-failed-message';
+        }
+        throw new Error(err.message);
+      }
+    });
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
-    this.router.navigate(['login']);
   }
 
   onCancel() {

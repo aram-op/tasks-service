@@ -1,5 +1,7 @@
 <app-header headerText="Register"/>
 
+<p class="register-failed-message hidden" #registerFailed>Account with this email is already registered</p>
+
 <form [formGroup]="registerForm">
   <div class="form-control-container">
     <label for="email">Email</label>
