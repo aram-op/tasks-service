@@ -1,9 +1,10 @@
-import {Component, DestroyRef, ElementRef, inject, ViewChild} from '@angular/core';
+import {Component, DestroyRef, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../auth/auth.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {HeaderComponent} from '../header/header.component';
 import {HttpErrorResponse} from '@angular/common/http';
+import {LoginFormModel} from './login-form.model';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
@@ -27,6 +28,34 @@ export class LoginComponent {
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'), Validators.required]),
   });
+
+
+  ngOnInit() {
+    const dataJson = localStorage.getItem('data');
+
+    if (dataJson) {
+      const data: { email: string, password: string } = JSON.parse(dataJson);
+
+      const controls = this.loginForm.controls;
+
+      if (data.email) controls.email.setValue(data.email);
+      if (data.password) controls.password.setValue(data.password);
+    }
+
+    const subscription = this.loginForm.valueChanges.subscribe({
+        next: (data: Partial<LoginFormModel>) => {
+          this.saveFormData(data);
+        }
+      }
+    );
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  }
+
+  saveFormData(data: Partial<LoginFormModel>) {
+    let obj = {email: '', password: ''};
+    if (data.email) obj.email = data.email;
+    if (data.password) obj.password = data.password;
+  }
 
   isButtonDisabled() {
     return !this.loginForm.valid;

@@ -79,6 +79,7 @@ header h1 {
   cursor: pointer;
   border: 2px solid rgba(246, 76, 76, 0.8);
   color: rgba(246, 76, 76, 0.8);
+  background-color: var(--background-color);
 }
 
 .user-info button:hover {

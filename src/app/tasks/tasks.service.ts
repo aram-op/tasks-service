@@ -24,8 +24,9 @@ export class TasksService {
     const subscription = this.http.get<Task[]>('http://localhost:3000/tasks')
       .pipe(
         map(tasks => tasks.filter(
-          task => task.userId === userId
-        ))
+            task => task.userId === userId
+          )
+        )
       )
       .subscribe(
         tasks => {

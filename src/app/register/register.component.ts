@@ -1,10 +1,11 @@
-import {Component, DestroyRef, ElementRef, inject, ViewChild} from '@angular/core';
+import {Component, DestroyRef, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {HeaderComponent} from '../header/header.component';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {User} from '../users/user.model';
 import {AuthService} from '../auth/auth.service';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
+import {RegisterFormModel} from './register-form.model';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   private authService = inject(AuthService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
@@ -46,6 +47,38 @@ export class RegisterComponent {
       ]
     ),
   });
+
+  ngOnInit() {
+    const storageItem = localStorage.getItem('user');
+
+    if (storageItem) {
+      const user: User = JSON.parse(storageItem);
+
+      const controls = this.registerForm.controls;
+
+      if (user.email) controls.email.setValue(user.email);
+      if (user.password) controls.password.setValue(user.password);
+      if (user.name) controls.name.setValue(user.name);
+      if (user.surname) controls.surname.setValue(user.surname);
+    }
+
+    const subscription = this.registerForm.valueChanges.subscribe({
+      next: (data: Partial<RegisterFormModel>) => {
+        this.saveFormData(data);
+      }
+    });
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  }
+
+  saveFormData(data: Partial<RegisterFormModel>) {
+    const user: User = {email: '', password: '', name: '', surname: ''};
+    if (data.email) user.email = data.email;
+    if (data.password) user.password = data.password;
+    if (data.name) user.name = data.name;
+    if (data.surname) user.surname = data.surname;
+
+    localStorage.setItem('user', JSON.stringify(user));
+  }
 
   isButtonDisabled() {
     return !this.registerForm.valid;
