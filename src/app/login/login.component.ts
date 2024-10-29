@@ -1,8 +1,9 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, ElementRef, inject, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../auth/auth.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {HeaderComponent} from '../header/header.component';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent {
   private route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+  @ViewChild('loginFailed') messageElem!: ElementRef<HTMLParagraphElement>;
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -34,17 +36,32 @@ export class LoginComponent {
     const email: string = this.loginForm.controls.email.value!.valueOf();
     const password: string = this.loginForm.controls.password.value!.valueOf();
 
-    const subscription = this.authService.login(email, password).subscribe(() => this.navigateBack());
+    const subscription = this.authService.login(email, password).subscribe({
+      next: () => {
+        this.navigateBack();
+        this.messageElem.nativeElement.className = 'login-failed-message hidden';
+      },
+      error: (err: HttpErrorResponse) => {
+        if (err.status === 400) {
+          this.messageElem.nativeElement.className = 'login-failed-message';
+        }
+        throw new Error(err.message);
+      }
+    });
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
   navigateBack() {
-    this.route.queryParams.subscribe(params => {
-      if (params['returnUrl']) {
-        this.router.navigate([params['returnUrl']]);
-      } else {
-        this.router.navigate(['tasks']).then(() => window.location.reload());
-      }
+    const subscription = this.route.queryParams.subscribe({
+      next: params => {
+        if (params['returnUrl']) {
+          this.router.navigate([params['returnUrl']]);
+        } else {
+          this.router.navigate(['tasks']).then(() => window.location.reload());
+        }
+      },
+      error: err => console.log(err)
     });
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 }

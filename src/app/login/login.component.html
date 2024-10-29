@@ -1,5 +1,7 @@
 <app-header headerText="Login" />
 
+  <p class="login-failed-message hidden" #loginFailed>Invalid email or password</p>
+
   <form [formGroup]="loginForm">
     <div class="form-item">
       <label for="email">Email</label>
