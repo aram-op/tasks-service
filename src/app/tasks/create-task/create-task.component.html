@@ -11,7 +11,7 @@
   </div>
   <div class="form-control-container">
     <label for="title">Due Date</label>
-    <input type="date" id="dueDate" formControlName="dueDate" name="dueDate"/>
+    <input type="date" [min]="currentDate" id="dueDate" formControlName="dueDate" name="dueDate"/>
   </div>
   <div class="form-control-container">
     <label for="priority">Priority</label>

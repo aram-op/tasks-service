@@ -22,6 +22,8 @@ export class UpdateTaskComponent {
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  currentDate = new Date().toISOString().split('T')[0];
+
   taskUpdateForm = new FormGroup({
     title: new FormControl(''),
     description: new FormControl(''),

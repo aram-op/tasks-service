@@ -21,6 +21,8 @@ export class CreateTaskComponent {
   private authService = inject(AuthService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+  currentDate = new Date().toISOString().split('T')[0];
+
   taskCreationForm = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -42,7 +44,6 @@ export class CreateTaskComponent {
       priority: controls['priority'].value,
       status: TaskStatus.TODO,
       userId: this.authService.getLoggedUserId()
-
     }
 
     const subscription = this.tasksService.addTask(newTaskObj).subscribe();
