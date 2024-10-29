@@ -74,7 +74,7 @@ export class TasksComponent implements OnInit {
   }
 
   setLoggedUser() {
-    this.authService.getUserInfo().subscribe(
+    this.authService.getLoggedUser().subscribe(
       user => this.user.set(user)
     );
   }

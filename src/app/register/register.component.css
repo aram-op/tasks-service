@@ -7,7 +7,7 @@ form {
   padding: 50px;
 }
 
-.form-item {
+.form-control-container {
   display: flex;
   flex-direction: column;
   height: 150px;
@@ -42,9 +42,23 @@ form button {
   font-size: 18px;
   cursor: pointer;
   margin-right: 30px;
+}
+
+.create {
   background-color: var(--header-font-color);
   color: #ffffff;
   border: none;
+}
+
+.create:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.cancel {
+  background-color: var(--background-color);
+  border: 2px solid var(--header-font-color);
+  color: var(--header-font-color);
 }
 
 form button:hover:not([disabled]) {
@@ -52,27 +66,12 @@ form button:hover:not([disabled]) {
   transition: 0.1s;
 }
 
-form button:disabled {
-  background-color: grey;
-  cursor: not-allowed;
+form input:focus {
+  box-shadow: #e5e5e5 0px 3px 15px;
+  transition: 0.2s;
 }
 
 .validation-message {
   font-size: 18px;
   color: #c75454;
-}
-
-.not-have-account {
-  margin-bottom: 25px;
-  color: rgba(51, 58, 59, 0.84);
-  font-size: 19px;
-}
-
-.not-have-account a {
-  text-decoration: none;
-  color: var(--header-font-color);
-}
-
-.not-have-account a:hover {
-  filter: brightness(70%);
 }

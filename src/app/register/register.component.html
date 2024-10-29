@@ -1,0 +1,40 @@
+<app-header headerText="Register"/>
+
+<form [formGroup]="registerForm">
+  <div class="form-control-container">
+    <label for="email">Email</label>
+    <input type="email" id="email" formControlName="email"/>
+    @if (emailIsInvalid()) {
+      <p class="validation-message">Entered email is not valid</p>
+    }
+  </div>
+  <div class="form-control-container">
+    <label for="password">Password</label>
+    <input type="text" id="password" formControlName="password"/>
+    @if (passwordIsInvalid()) {
+      <p class="validation-message">
+        Password should be at least 8 characters.<br/>
+        It must contain lowercase letters, uppercase letters, numbers and special symbols
+      </p>
+    }
+  </div>
+
+  <div class="form-control-container">
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name"/>
+    @if (nameIsInvalid()) {
+      <p class="validation-message">Name is required</p>
+    }
+  </div>
+
+  <div class="form-control-container">
+    <label for="surname">Surname</label>
+    <input type="text" id="surname" formControlName="surname"/>
+    @if (surnameIsInvalid()) {
+      <p class="validation-message">Surname is required</p>
+    }
+  </div>
+
+  <button class="create" type="button" [disabled]="isButtonDisabled()" (click)="onRegister()">Register</button>
+  <button class="cancel" type="button" (click)="onCancel()">Cancel</button>
+</form>

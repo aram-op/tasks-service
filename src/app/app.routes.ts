@@ -5,6 +5,7 @@ import {CreateTaskComponent} from './tasks/create-task/create-task.component';
 import {UpdateTaskComponent} from './tasks/update-task/update-task.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {AppGuard} from './app.guard';
+import {RegisterComponent} from './register/register.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'tasks',

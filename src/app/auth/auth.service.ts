@@ -11,6 +11,10 @@ import {User} from '../users/user.model';
 export class AuthService {
   private http = inject(HttpClient);
 
+  register(user: User) {
+    return this.http.post('http://localhost:3000/register', user);
+  }
+
   login(email: string, password: string) {
     return this.http.post<LoginResponseModel>('http://localhost:3000/login', {email, password})
       .pipe(tap(res => this.setSession(res)));
@@ -49,9 +53,9 @@ export class AuthService {
     return moment(expiresAt);
   }
 
-  getUserInfo() {
+  getLoggedUser() {
     const arrayToken = localStorage.getItem('accessToken')!.valueOf().split('.');
     const tokenPayload = JSON.parse(atob(arrayToken[1]))
-    return  this.http.get<User>('http://localhost:3000/users/' + tokenPayload.sub);
+    return this.http.get<User>('http://localhost:3000/users/' + tokenPayload.sub);
   }
 }

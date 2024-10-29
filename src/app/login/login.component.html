@@ -15,6 +15,7 @@
         <p class="validation-message">Invalid password</p>
       }
     </div>
+    <p class="not-have-account">Do not have an account? <a routerLink="../register">Register</a></p>
 
     <button type="submit" [disabled]="isButtonDisabled()" (click)="onLogin()">Login</button>
   </form>

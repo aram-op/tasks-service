@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UsersService} from '../users/users.service';
 import {AuthService} from '../auth/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {HeaderComponent} from '../header/header.component';
 
 @Component({
@@ -10,7 +10,8 @@ import {HeaderComponent} from '../header/header.component';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    HeaderComponent
+    HeaderComponent,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
