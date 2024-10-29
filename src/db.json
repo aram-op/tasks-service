@@ -6,80 +6,31 @@
       "name": "Aram",
       "surname": "Tadevosyan",
       "id": "DRPJQQ2"
+    },
+    {
+      "email": "newuser@example.com",
+      "password": "$2a$10$EACuLazeogfPByQoyRv.NuTp4e4XOXvyd92RE452yTNnTIgWnsK6G",
+      "name": "Sun",
+      "surname": "Liang",
+      "id": "rGhRyac"
+    },
+    {
+      "email": "newOne@email.com",
+      "password": "$2a$10$Y0zSdpoKpYq/8kOl8AJ36O4dCWJETrENGqEmyiU8KE6wMrXNzH3v6",
+      "name": "Name",
+      "surname": "Surname",
+      "id": "YftztlO"
     }
   ],
   "tasks": [
     {
-      "title": "New Task",
-      "description": "Description",
-      "dueDate": "2024-12-26",
-      "priority": "PRIORITY_LOW",
-      "status": "STATUS_COMPLETED",
-      "id": 1
-    },
-    {
-      "title": "Create a button",
-      "description": "We need a good button",
-      "dueDate": "2024-10-31",
-      "priority": "PRIORITY_MEDIUM",
-      "status": "STATUS_IN_PROGRESS",
-      "id": 2
-    },
-    {
-      "title": "Task1",
-      "description": "1",
-      "dueDate": "2024-10-31",
-      "priority": "PRIORITY_MEDIUM",
-      "status": "STATUS_COMPLETED",
-      "id": 3
-    },
-    {
-      "title": "Tas2",
-      "description": "ad",
-      "dueDate": "2024-10-25",
-      "priority": "PRIORITY_LOW",
-      "status": "STATUS_TODO",
-      "id": 4
-    },
-    {
-      "title": "dwqeWE",
-      "description": "wef",
-      "dueDate": "2024-10-31",
-      "priority": "PRIORITY_LOW",
-      "status": "STATUS_COMPLETED",
-      "id": 5
-    },
-    {
-      "title": "sfacfsdfe",
-      "description": "afeserwds",
+      "title": "rgerwae",
+      "description": "aregvrfesd",
       "dueDate": "2024-10-31",
       "priority": "PRIORITY_HIGH",
-      "status": "STATUS_IN_PROGRESS",
-      "id": 6
-    },
-    {
-      "title": "sfcdasfe",
-      "description": "efasWCSWAD",
-      "dueDate": "2024-10-31",
-      "priority": "PRIORITY_LOW",
-      "status": "STATUS_COMPLETED",
-      "id": 7
-    },
-    {
-      "title": "waedcfwacdfefcdea",
-      "description": "awsdcfreas",
-      "dueDate": "2024-10-31",
-      "priority": "PRIORITY_LOW",
       "status": "STATUS_TODO",
-      "id": 8
-    },
-    {
-      "title": "adfesca",
-      "description": "awefvced",
-      "dueDate": "2024-10-31",
-      "priority": "PRIORITY_CRITICAL",
-      "status": "STATUS_IN_PROGRESS",
-      "id": 9
+      "userId": "DRPJQQ2",
+      "id": 1
     }
   ]
 }

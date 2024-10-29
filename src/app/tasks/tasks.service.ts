@@ -1,20 +1,36 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Task} from './task.model';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, map} from 'rxjs';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
+  private authService = inject(AuthService);
   private http = inject(HttpClient);
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   tasks$ = this.tasksSubject.asObservable();
 
   constructor() {
-    this.http.get<Task[]>('http://localhost:3000/tasks').subscribe(tasks => {
-      this.tasksSubject.next(tasks);
-    });
+    this.setUsersTasks();
+  }
+
+  setUsersTasks() {
+    const userId = this.authService.getLoggedUserId();
+
+    this.http.get<Task[]>('http://localhost:3000/tasks')
+      .pipe(
+        map(tasks => tasks.filter(
+          task => task.userId === userId
+        ))
+      )
+      .subscribe(
+        tasks => {
+          this.tasksSubject.next(tasks);
+        }
+      );
   }
 
   getTaskById(id: string) {

@@ -58,4 +58,11 @@ export class AuthService {
     const tokenPayload = JSON.parse(atob(arrayToken[1]))
     return this.http.get<User>('http://localhost:3000/users/' + tokenPayload.sub);
   }
+
+  getLoggedUserId() {
+    const arrayToken = localStorage.getItem('accessToken')!.valueOf().split('.');
+    const tokenPayload = JSON.parse(atob(arrayToken[1]));
+
+    return tokenPayload.sub;
+  }
 }

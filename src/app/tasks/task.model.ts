@@ -4,7 +4,8 @@ export interface Task {
   description: string,
   dueDate: string,
   priority: TaskPriority,
-  status: TaskStatus
+  status: TaskStatus,
+  userId: string
 }
 
 export enum TaskPriority {
