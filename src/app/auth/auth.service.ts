@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs';
 import moment from 'moment';
 import {LoginResponseModel} from './login-response.model';
+import {User} from '../users/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,11 @@ export class AuthService {
     }
     const expiresAt = JSON.parse(expiration.valueOf());
     return moment(expiresAt);
+  }
+
+  getUserInfo() {
+    const arrayToken = localStorage.getItem('accessToken')!.valueOf().split('.');
+    const tokenPayload = JSON.parse(atob(arrayToken[1]))
+    return  this.http.get<User>('http://localhost:3000/users/' + tokenPayload.sub);
   }
 }

@@ -1,21 +1,11 @@
 {
   "users": [
     {
-      "id": "1",
+      "email": "admin@example.com",
+      "password": "$2a$10$l8fAb7cwnd3xGnEpnW.PHe5pSYYQA8wHylFeGGannNzsZHWrKnqn6",
       "name": "Aram",
       "surname": "Tadevosyan",
-      "email": "aramtad2006@gmail.com",
-      "password": "Password123$"
-    },
-    {
-      "email": "olivier@mail.com",
-      "password": "$2a$10$S8n0T/dvrBBk.DY1oZGrBuNWnlJs2wyDy7sS7ljWpx.VLeQ8ucyym",
-      "id": "xz6d5hz"
-    },
-    {
-      "email": "aramtad@gmail.com",
-      "password": "$2a$10$7Ihvm/eRPm7FjEr18TNWPO/3dEn4isZ8GVwWLDdxBS71nQRzh3yo.",
-      "id": "NJSn3LH"
+      "id": "DRPJQQ2"
     }
   ],
   "tasks": [
@@ -34,6 +24,62 @@
       "priority": "PRIORITY_MEDIUM",
       "status": "STATUS_IN_PROGRESS",
       "id": 2
+    },
+    {
+      "title": "Task1",
+      "description": "1",
+      "dueDate": "2024-10-31",
+      "priority": "PRIORITY_MEDIUM",
+      "status": "STATUS_COMPLETED",
+      "id": 3
+    },
+    {
+      "title": "Tas2",
+      "description": "ad",
+      "dueDate": "2024-10-25",
+      "priority": "PRIORITY_LOW",
+      "status": "STATUS_TODO",
+      "id": 4
+    },
+    {
+      "title": "dwqeWE",
+      "description": "wef",
+      "dueDate": "2024-10-31",
+      "priority": "PRIORITY_LOW",
+      "status": "STATUS_COMPLETED",
+      "id": 5
+    },
+    {
+      "title": "sfacfsdfe",
+      "description": "afeserwds",
+      "dueDate": "2024-10-31",
+      "priority": "PRIORITY_HIGH",
+      "status": "STATUS_IN_PROGRESS",
+      "id": 6
+    },
+    {
+      "title": "sfcdasfe",
+      "description": "efasWCSWAD",
+      "dueDate": "2024-10-31",
+      "priority": "PRIORITY_LOW",
+      "status": "STATUS_COMPLETED",
+      "id": 7
+    },
+    {
+      "title": "waedcfwacdfefcdea",
+      "description": "awsdcfreas",
+      "dueDate": "2024-10-31",
+      "priority": "PRIORITY_LOW",
+      "status": "STATUS_TODO",
+      "id": 8
+    },
+    {
+      "title": "adfesca",
+      "description": "awefvced",
+      "dueDate": "2024-10-31",
+      "priority": "PRIORITY_CRITICAL",
+      "status": "STATUS_IN_PROGRESS",
+      "id": 9
     }
   ]
 }

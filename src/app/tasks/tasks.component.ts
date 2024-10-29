@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {TasksService} from './tasks.service';
 import {Observable} from 'rxjs';
 import {Task, TaskStatus} from './task.model';
@@ -6,6 +6,8 @@ import {TaskComponent} from './task/task.component';
 import {Router} from '@angular/router';
 import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, transferArrayItem} from '@angular/cdk/drag-drop';
 import {HeaderComponent} from '../header/header.component';
+import {AuthService} from '../auth/auth.service';
+import {User} from '../users/user.model';
 
 @Component({
   selector: 'app-tasks',
@@ -23,6 +25,8 @@ import {HeaderComponent} from '../header/header.component';
 export class TasksComponent implements OnInit {
   private tasksService = inject(TasksService);
   private router = inject(Router);
+  private authService = inject(AuthService);
+  user: WritableSignal<User | undefined> = signal(undefined);
   tasks$!: Observable<Task[]>;
   completedTasks: Task[] = [];
   todoTasks: Task[] = [];
@@ -36,6 +40,7 @@ export class TasksComponent implements OnInit {
       this.todoTasks = tasks.filter(task => task.status === TaskStatus.TODO);
       this.inProgressTasks = tasks.filter(task => task.status === TaskStatus.IN_PROGRESS);
     });
+    this.setLoggedUser();
   }
 
   onCreateTask() {
@@ -68,6 +73,12 @@ export class TasksComponent implements OnInit {
     this.tasksService.updateTask(task.id, task).subscribe();
   }
 
+  setLoggedUser() {
+    this.authService.getUserInfo().subscribe(
+      user => this.user.set(user)
+    );
+  }
+
   noReturnPredicate() {
     return false;
   }
@@ -78,5 +89,10 @@ export class TasksComponent implements OnInit {
 
   todoOrInProgressPredicate(item: CdkDrag<Task>) {
     return item.data.status === TaskStatus.TODO || item.data.status === TaskStatus.IN_PROGRESS;
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['login']).then(() => window.location.reload());
   }
 }

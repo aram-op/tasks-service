@@ -1,6 +1,15 @@
 <header>
-  <h1>Your Available Tasks</h1>
-  <button type="button" (click)="onCreateTask()">Create Task</button>
+  <div class="left-container">
+    <h1>Your Available Tasks</h1>
+    <button class="create" type="button" (click)="onCreateTask()">Create Task</button>
+  </div>
+  <div class="user-info">
+    <div class="text-container">
+      <p>{{ user()?.name + ' ' + user()?.surname }}</p>
+      <p> {{ user()?.email }}</p>
+    </div>
+    <button class="logout" type="button" (click)="onLogout()">Log Out</button>
+  </div>
 </header>
 
 <div class="tasks-container">
