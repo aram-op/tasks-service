@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {TasksService} from '../tasks.service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Task, TaskPriority, TaskStatus} from '../task.model';
@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HeaderComponent} from '../../header/header.component';
 import {catchError, throwError} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
+import {UpdateTaskFormModel} from './update-task-form.model';
 
 @Component({
   selector: 'app-update-task',
@@ -17,7 +18,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   templateUrl: './update-task.component.html',
   styleUrl: './update-task.component.css'
 })
-export class UpdateTaskComponent {
+export class UpdateTaskComponent implements OnInit {
   private tasksService = inject(TasksService);
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
@@ -45,6 +46,7 @@ export class UpdateTaskComponent {
             task => {
               this.initializeForm(task);
               this.task = task;
+              this.trackFormDataChanges();
             }
           );
         this.destroyRef.onDestroy(() => subscription.unsubscribe());
@@ -52,6 +54,74 @@ export class UpdateTaskComponent {
         this.router.navigate(['not-found']).then(() => window.location.reload());
       }
     });
+
+    this.destroyRef.onDestroy(() => localStorage.removeItem('updateTaskFormData'));
+  }
+
+  trackFormDataChanges() {
+    const taskJson = localStorage.getItem('updateTaskFormData');
+
+    if (taskJson) {
+      const task: Task = JSON.parse(taskJson);
+      const controls = this.taskUpdateForm.controls;
+
+      if (task.title) controls.title.setValue(task.title);
+      if (task.description) controls.description.setValue(task.description);
+      if (task.dueDate) controls.dueDate.setValue(task.dueDate);
+      if (task.priority) controls.priority.setValue(task.priority);
+      if (task.status) controls.status.setValue(task.status);
+    }
+
+    const subscription = this.taskUpdateForm.valueChanges.subscribe({
+      next: (data: Partial<UpdateTaskFormModel>) => {
+        this.saveFormData(data);
+      }
+    });
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  }
+
+  saveFormData(data: Partial<UpdateTaskFormModel>) {
+    const task: Task = {
+      title: '',
+      description: '',
+      priority: TaskPriority.LOW,
+      dueDate: '',
+      status: TaskStatus.TODO
+    };
+
+    if (data.title) task.title = data.title;
+    if (data.description) task.description = data.description;
+    if (data.dueDate) task.dueDate = data.dueDate;
+    if (data.status) {
+      switch (data.status) {
+        case 'STATUS_TODO' :
+          task.status = TaskStatus.TODO;
+          break;
+        case 'STATUS_IN_PROGRESS' :
+          task.status = TaskStatus.IN_PROGRESS;
+          break;
+        case 'STATUS_COMPLETED' :
+          task.status = TaskStatus.COMPLETED;
+          break;
+      }
+    }
+    if (data.priority) {
+      switch (data.priority) {
+        case 'PRIORITY_LOW' :
+          task.priority = TaskPriority.LOW;
+          break;
+        case 'PRIORITY_MEDIUM' :
+          task.priority = TaskPriority.MEDIUM;
+          break;
+        case 'PRIORITY_HIGH' :
+          task.priority = TaskPriority.HIGH;
+          break;
+        case 'PRIORITY_CRITICAL':
+          task.priority = TaskPriority.CRITICAL;
+          break;
+      }
+    }
+    localStorage.setItem('updateTaskFormData', JSON.stringify(task));
   }
 
   isButtonDisabled() {
@@ -76,14 +146,14 @@ export class UpdateTaskComponent {
       this.task.status = status;
     }
 
-    const subscription = this.tasksService.updateTask(this.task.id, this.task).subscribe();
+    const subscription = this.tasksService.updateTask(this.task.id!.valueOf(), this.task).subscribe();
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
 
     this.router.navigate(['tasks']).then(() => window.location.reload());
   }
 
   onDeleteTask() {
-    const subscription = this.tasksService.deleteTask(this.task.id).subscribe();
+    const subscription = this.tasksService.deleteTask(this.task.id!.valueOf()).subscribe();
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
 
     this.router.navigate(['tasks']).then(() => window.location.reload());
@@ -95,7 +165,7 @@ export class UpdateTaskComponent {
       description: new FormControl(task.description),
       dueDate: new FormControl(task.dueDate),
       priority: new FormControl(task.priority.valueOf()),
-      status: new FormControl(task.status.valueOf()),
+      status: new FormControl(task.status!.valueOf()),
     });
   }
 

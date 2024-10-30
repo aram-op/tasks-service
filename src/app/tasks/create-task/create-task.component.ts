@@ -1,10 +1,11 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TasksService} from '../tasks.service';
-import {TaskStatus} from '../task.model';
+import {Task, TaskPriority, TaskStatus} from '../task.model';
 import {Router} from '@angular/router';
 import {HeaderComponent} from '../../header/header.component';
 import {AuthService} from '../../auth/auth.service';
+import {CreateTaskFormModel} from './create-task-form.model';
 
 @Component({
   selector: 'app-create-task',
@@ -16,7 +17,7 @@ import {AuthService} from '../../auth/auth.service';
   templateUrl: './create-task.component.html',
   styleUrl: './create-task.component.css'
 })
-export class CreateTaskComponent {
+export class CreateTaskComponent implements OnInit {
   private tasksService = inject(TasksService);
   private authService = inject(AuthService);
   private destroyRef = inject(DestroyRef);
@@ -30,6 +31,51 @@ export class CreateTaskComponent {
     priority: new FormControl('PRIORITY_LOW', Validators.required)
   });
 
+  ngOnInit() {
+    const taskJson = localStorage.getItem('createTaskFormData');
+
+    if (taskJson) {
+      const task: Task = JSON.parse(taskJson);
+      const controls = this.taskCreationForm.controls;
+
+      if (task.title) controls.title.setValue(task.title);
+      if (task.description) controls.description.setValue(task.description);
+      if (task.dueDate) controls.dueDate.setValue(task.dueDate);
+      if (task.priority) controls.priority.setValue(task.priority);
+    }
+
+    const subscription = this.taskCreationForm.valueChanges.subscribe({
+      next: (data: Partial<CreateTaskFormModel>) => {
+        this.saveFormData(data);
+      }
+    });
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  }
+
+  saveFormData(data: Partial<CreateTaskFormModel>) {
+    const task: Task = {title: '', description: '', priority: TaskPriority.LOW, dueDate: ''};
+
+    if (data.title) task.title = data.title;
+    if (data.description) task.description = data.description;
+    if (data.dueDate) task.dueDate = data.dueDate;
+    if (data.priority) {
+      switch (data.priority) {
+        case 'PRIORITY_LOW' :
+          task.priority = TaskPriority.LOW;
+          break;
+        case 'PRIORITY_MEDIUM' :
+          task.priority = TaskPriority.MEDIUM;
+          break;
+        case 'PRIORITY_HIGH' :
+          task.priority = TaskPriority.HIGH;
+          break;
+        case 'PRIORITY_CRITICAL':
+          task.priority = TaskPriority.CRITICAL;
+          break;
+      }
+    }
+    localStorage.setItem('createTaskFormData', JSON.stringify(task));
+  }
 
   isButtonDisabled() {
     return !this.taskCreationForm.valid;

@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
   });
 
   ngOnInit() {
-    const storageItem = localStorage.getItem('user');
+    const storageItem = localStorage.getItem('registerFormData');
 
     if (storageItem) {
       const user: User = JSON.parse(storageItem);
@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
     if (data.name) user.name = data.name;
     if (data.surname) user.surname = data.surname;
 
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('registerFormData', JSON.stringify(user));
   }
 
   isButtonDisabled() {

@@ -73,7 +73,7 @@ export class TasksComponent implements OnInit {
         task.status = TaskStatus.COMPLETED;
         break;
     }
-    const subscription = this.tasksService.updateTask(task.id, task).subscribe();
+    const subscription = this.tasksService.updateTask(task.id!.valueOf(), task).subscribe();
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 

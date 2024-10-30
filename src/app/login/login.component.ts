@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
-    const dataJson = localStorage.getItem('data');
+    const dataJson = localStorage.getItem('loginFormData');
 
     if (dataJson) {
       const data: { email: string, password: string } = JSON.parse(dataJson);
@@ -55,6 +55,8 @@ export class LoginComponent implements OnInit {
     let obj = {email: '', password: ''};
     if (data.email) obj.email = data.email;
     if (data.password) obj.password = data.password;
+
+    localStorage.setItem('loginFormData', JSON.stringify(obj));
   }
 
   isButtonDisabled() {
