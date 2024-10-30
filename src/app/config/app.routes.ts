@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import {LoginComponent} from './login/login.component';
-import {TasksComponent} from './tasks/tasks.component';
-import {CreateTaskComponent} from './tasks/create-task/create-task.component';
-import {UpdateTaskComponent} from './tasks/update-task/update-task.component';
-import {NotFoundComponent} from './not-found/not-found.component';
-import {AppGuard} from './app.guard';
-import {RegisterComponent} from './register/register.component';
+import {LoginComponent} from '../component/login.component';
+import {TasksComponent} from '../component/tasks.component';
+import {CreateTaskComponent} from '../component/create-task.component';
+import {UpdateTaskComponent} from '../component/update-task.component';
+import {NotFoundComponent} from '../component/not-found.component';
+import {AppGuard} from '../guard/app.guard';
+import {RegisterComponent} from '../component/register.component';
 
 export const routes: Routes = [
   {

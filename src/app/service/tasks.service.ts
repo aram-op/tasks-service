@@ -1,8 +1,8 @@
 import {DestroyRef, inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Task} from './task.model';
+import {Task} from '../model/task.model';
 import {BehaviorSubject, map} from 'rxjs';
-import {AuthService} from '../auth/auth.service';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'

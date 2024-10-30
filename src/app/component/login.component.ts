@@ -1,10 +1,10 @@
 import {Component, DestroyRef, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../auth/auth.service';
+import {AuthService} from '../service/auth.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {HeaderComponent} from '../header/header.component';
+import {HeaderComponent} from './header.component';
 import {HttpErrorResponse} from '@angular/common/http';
-import {LoginFormModel} from './login-form.model';
+import {LoginFormModel} from '../model/login-form.model';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,8 @@ import {LoginFormModel} from './login-form.model';
     HeaderComponent,
     RouterLink
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: '../template/login.component.html',
+  styleUrl: '../style/login.component.css'
 })
 export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
@@ -31,17 +31,6 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
-    const dataJson = localStorage.getItem('loginFormData');
-
-    if (dataJson) {
-      const data: { email: string, password: string } = JSON.parse(dataJson);
-
-      const controls = this.loginForm.controls;
-
-      if (data.email) controls.email.setValue(data.email);
-      if (data.password) controls.password.setValue(data.password);
-    }
-
     const subscription = this.loginForm.valueChanges.subscribe({
         next: (data: Partial<LoginFormModel>) => {
           this.saveFormData(data);
@@ -57,6 +46,19 @@ export class LoginComponent implements OnInit {
     if (data.password) obj.password = data.password;
 
     localStorage.setItem('loginFormData', JSON.stringify(obj));
+  }
+
+  setFormData() {
+    const dataJson = localStorage.getItem('loginFormData');
+
+    if (dataJson) {
+      const data: { email: string, password: string } = JSON.parse(dataJson);
+
+      const controls = this.loginForm.controls;
+
+      if (data.email) controls.email.setValue(data.email);
+      if (data.password) controls.password.setValue(data.password);
+    }
   }
 
   isButtonDisabled() {

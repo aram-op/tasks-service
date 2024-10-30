@@ -1,12 +1,12 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
-import {TasksService} from '../tasks.service';
+import {TasksService} from '../service/tasks.service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Task, TaskPriority, TaskStatus} from '../task.model';
+import {Task, TaskPriority, TaskStatus} from '../model/task.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HeaderComponent} from '../../header/header.component';
+import {HeaderComponent} from './header.component';
 import {catchError, throwError} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
-import {UpdateTaskFormModel} from './update-task-form.model';
+import {UpdateTaskFormModel} from '../model/update-task-form.model';
 
 @Component({
   selector: 'app-update-task',
@@ -15,8 +15,8 @@ import {UpdateTaskFormModel} from './update-task-form.model';
     ReactiveFormsModule,
     HeaderComponent
   ],
-  templateUrl: './update-task.component.html',
-  styleUrl: './update-task.component.css'
+  templateUrl: '../template/update-task.component.html',
+  styleUrl: '../style/update-task.component.css'
 })
 export class UpdateTaskComponent implements OnInit {
   private tasksService = inject(TasksService);

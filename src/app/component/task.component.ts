@@ -1,7 +1,7 @@
 import {Component, inject, input} from '@angular/core';
-import {Task, TaskPriority, TaskStatus} from '../task.model';
+import {Task, TaskPriority, TaskStatus} from '../model/task.model';
 import {Router} from '@angular/router';
-import {HeaderComponent} from '../../header/header.component';
+import {HeaderComponent} from './header.component';
 import {DatePipe} from '@angular/common';
 
 @Component({
@@ -11,8 +11,8 @@ import {DatePipe} from '@angular/common';
     HeaderComponent,
     DatePipe
   ],
-  templateUrl: './task.component.html',
-  styleUrl: './task.component.css'
+  templateUrl: '../template/task.component.html',
+  styleUrl: '../style/task.component.css'
 })
 export class TaskComponent {
   private router = inject(Router);

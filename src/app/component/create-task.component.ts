@@ -1,11 +1,11 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {TasksService} from '../tasks.service';
-import {Task, TaskPriority, TaskStatus} from '../task.model';
+import {TasksService} from '../service/tasks.service';
+import {Task, TaskPriority, TaskStatus} from '../model/task.model';
 import {Router} from '@angular/router';
-import {HeaderComponent} from '../../header/header.component';
-import {AuthService} from '../../auth/auth.service';
-import {CreateTaskFormModel} from './create-task-form.model';
+import {HeaderComponent} from './header.component';
+import {AuthService} from '../service/auth.service';
+import {CreateTaskFormModel} from '../model/create-task-form.model';
 
 @Component({
   selector: 'app-create-task',
@@ -14,8 +14,8 @@ import {CreateTaskFormModel} from './create-task-form.model';
     ReactiveFormsModule,
     HeaderComponent
   ],
-  templateUrl: './create-task.component.html',
-  styleUrl: './create-task.component.css'
+  templateUrl: '../template/create-task.component.html',
+  styleUrl: '../style/create-task.component.css'
 })
 export class CreateTaskComponent implements OnInit {
   private tasksService = inject(TasksService);

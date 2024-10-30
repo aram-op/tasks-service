@@ -4,8 +4,8 @@ import {Component, input} from '@angular/core';
   selector: 'app-header',
   standalone: true,
   imports: [],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  templateUrl: '../template/header.component.html',
+  styleUrl: '../style/header.component.css'
 })
 export class HeaderComponent {
   headerText = input.required<string>();

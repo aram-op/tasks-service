@@ -1,13 +1,13 @@
 import {Component, DestroyRef, inject, OnInit, signal, WritableSignal} from '@angular/core';
-import {TasksService} from './tasks.service';
+import {TasksService} from '../service/tasks.service';
 import {Observable} from 'rxjs';
-import {Task, TaskStatus} from './task.model';
-import {TaskComponent} from './task/task.component';
+import {Task, TaskStatus} from '../model/task.model';
+import {TaskComponent} from './task.component';
 import {Router} from '@angular/router';
 import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, transferArrayItem} from '@angular/cdk/drag-drop';
-import {HeaderComponent} from '../header/header.component';
-import {AuthService} from '../auth/auth.service';
-import {User} from '../users/user.model';
+import {HeaderComponent} from './header.component';
+import {AuthService} from '../service/auth.service';
+import {User} from '../model/user.model';
 
 @Component({
   selector: 'app-tasks',
@@ -19,8 +19,8 @@ import {User} from '../users/user.model';
     CdkDropList,
     HeaderComponent
   ],
-  templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.css'
+  templateUrl: '../template/tasks.component.html',
+  styleUrl: '../style/tasks.component.css'
 })
 export class TasksComponent implements OnInit {
   private tasksService = inject(TasksService);

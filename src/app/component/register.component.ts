@@ -1,11 +1,11 @@
 import {Component, DestroyRef, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
-import {HeaderComponent} from '../header/header.component';
+import {HeaderComponent} from './header.component';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {User} from '../users/user.model';
-import {AuthService} from '../auth/auth.service';
+import {User} from '../model/user.model';
+import {AuthService} from '../service/auth.service';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
-import {RegisterFormModel} from './register-form.model';
+import {RegisterFormModel} from '../model/register-form.model';
 
 @Component({
   selector: 'app-register',
@@ -14,8 +14,8 @@ import {RegisterFormModel} from './register-form.model';
     HeaderComponent,
     ReactiveFormsModule
   ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  templateUrl: '../template/register.component.html',
+  styleUrl: '../style/register.component.css'
 })
 export class RegisterComponent implements OnInit {
   private authService = inject(AuthService);

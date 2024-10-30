@@ -2,8 +2,8 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs';
 import moment from 'moment';
-import {LoginResponseModel} from './login-response.model';
-import {User} from '../users/user.model';
+import {LoginResponseModel} from '../model/login-response.model';
+import {User} from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'

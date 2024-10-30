@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {HeaderComponent} from '../header/header.component';
+import {HeaderComponent} from './header.component';
 
 @Component({
   selector: 'app-not-found',
@@ -7,8 +7,8 @@ import {HeaderComponent} from '../header/header.component';
   imports: [
     HeaderComponent
   ],
-  templateUrl: './not-found.component.html',
-  styleUrl: './not-found.component.css'
+  templateUrl: '../template/not-found.component.html',
+  styleUrl: '../style/not-found.component.css'
 })
 export class NotFoundComponent {
 
